@@ -7,8 +7,6 @@
     <link rel="stylesheet" href="quest-style.css">
 
     <style>
-        /* ====== GAME UI UPGRADE ====== */
-
         .hud {
             display: flex;
             align-items: center;
@@ -269,9 +267,7 @@
     </div>
 
     <script>
-        /* ==========================
-           ✅ TASKS
-        ========================== */
+
         let currentTask = localStorage.getItem('qTask') ? parseInt(localStorage.getItem('qTask')) : 0;
 
         const tasks = [
@@ -287,9 +283,7 @@
             { instr: 'Type: <code># finished</code>', target: '# finished', output: '(quest flag raised)' }
         ];
 
-        /* ==========================
-           ✅ ELEMENTS
-        ========================== */
+        /* Elements*/
         const taskChip = document.getElementById("taskChip");
         const taskInstr = document.getElementById("taskInstr");
         const feedback = document.getElementById("feedback");
@@ -304,9 +298,7 @@
         const retryBtn = document.getElementById("retryBtn");
         const resetBtn = document.getElementById("resetBtn");
 
-        /* ==========================
-           ✅ HELPERS
-        ========================== */
+        /* Helpers */
         function normalize(s) { return s.replace(/\s+/g, '').trim(); }
 
         function addLine(html) {
@@ -367,11 +359,8 @@
             feedback.innerHTML = "❌ The magic failed. Check your quotes and brackets!";
         }
 
-        /* ==========================
-           ✅ MAIN GAME LOGIC
-        ========================== */
+        /* Main Game logic*/
         function runSpell() {
-            // already finished
             if (currentTask >= tasks.length) {
                 completeQuest();
                 return;
@@ -403,9 +392,7 @@
             }
         }
 
-        /* ==========================
-           ✅ EVENTS
-        ========================== */
+        /* Events */
         input.addEventListener("keydown", (e) => {
             if (e.key === "Enter") runSpell();
         });
@@ -430,9 +417,6 @@
             loadTask();
         });
 
-        /* ==========================
-           ✅ INIT
-        ========================== */
         window.onload = loadTask;
     </script>
 

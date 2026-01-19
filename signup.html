@@ -184,7 +184,6 @@
             border-color: rgba(231, 76, 60, 0.35);
         }
 
-        /* small floating sparkles */
         .float-layer {
             position: fixed;
             inset: 0;
@@ -239,7 +238,6 @@
             }
         }
 
-        /* keep UI above floats */
         .auth-wrap {
             transform: translateY(-20px);
         }
@@ -266,7 +264,7 @@
 
     <div class="auth-wrap">
 
-        <!-- LEFT: branding -->
+        <!-- LEFT -->
         <div class="card brand">
             <span class="tag">🧙 QuestEd Academy</span>
             <h1>Sign Up</h1>
@@ -284,7 +282,7 @@
             </div>
         </div>
 
-        <!-- RIGHT: form -->
+        <!-- RIGHT -->
         <div class="card">
             <div id="msg" class="msg"></div>
 
@@ -351,7 +349,6 @@
             const pass = document.getElementById("pass").value;
             const confirm = document.getElementById("confirm").value;
 
-            // validations
             if (name.length < 2) {
                 showMsg("❌ Name too short.", false);
                 return;
@@ -367,11 +364,10 @@
                 return;
             }
 
-            // store user
             const user = { name, email };
             localStorage.setItem("questedUser", JSON.stringify(user));
             localStorage.setItem("isLoggedIn", "1");
-            localStorage.setItem("playerName", name); // reuse profile system
+            localStorage.setItem("playerName", name);
 
             showMsg("✅ Account created! Entering QuestEd...", true);
 

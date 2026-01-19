@@ -184,7 +184,6 @@
     </div>
 
     <script>
-        // ===== Question bank =====
         const QUESTIONS = [
             { code: 'print("Magic" + "Portal")', options: ["Magic Portal", "MagicPortal", "Magic+Portal", "Error"], answer: "MagicPortal" },
             { code: 'gold = 100\ngold = 200\nprint(gold)', options: ["100", "200", "100 200", "Error"], answer: "200" },
@@ -198,7 +197,6 @@
             { code: 'def mystery():\n  pass\n# Which keyword starts a function?', options: ["func", "define", "def", "start"], answer: "def" }
         ];
 
-        // ===== state =====
         let qIndex = 0;
         let bossHP = 100;
         let playerHP = 100;
@@ -213,7 +211,6 @@
         const qCount = document.getElementById("qCount");
         const progFill = document.getElementById("progFill");
 
-        // ===== helpers =====
         function shuffle(arr) {
             for (let i = arr.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
@@ -222,7 +219,6 @@
             return arr;
         }
 
-        // Create a shuffled copy of questions & options
         const questions = shuffle(QUESTIONS.map(q => ({
             code: q.code,
             answer: q.answer,
@@ -297,14 +293,12 @@
                     return;
                 }
 
-                // let them retry same question
                 setTimeout(() => {
                     lockOptions(false);
                     feedback.innerText = "Try again ⚔️";
                 }, 900);
             }
 
-            // early win if guardian defeated
             if (bossHP <= 0) {
                 winGame();
             }
@@ -318,7 +312,7 @@
             localStorage.setItem("q5Complete", "1");
 
             setTimeout(() => {
-                location.href = "python-level.html"; // or victory.html if you want
+                location.href = "victory.html";
             }, 1700);
         }
 
@@ -331,27 +325,15 @@
             }, 2000);
         }
 
-        // init
+
         updateBars();
         loadQuestion();
-    </script>
-    <!-- Loading overlay -->
-    <div id="loadingOverlay">
-        <div class="loader-scroll">
-            ✨ Loading Next Area...
-            <div class="loader-bar">
-                <div class="loader-fill"></div>
-            </div>
-        </div>
-    </div>
-    <script>
-        // Fade-in on load
+
         document.addEventListener("DOMContentLoaded", () => {
             document.body.classList.add("page-fade");
             requestAnimationFrame(() => document.body.classList.add("show"));
         });
 
-        // Navigate with animation
         function go(url) {
             const overlay = document.getElementById("loadingOverlay");
             overlay && overlay.classList.add("show");
@@ -362,7 +344,6 @@
             }, 350);
         }
 
-        // Intercept normal link clicks
         document.addEventListener("click", (e) => {
             const a = e.target.closest("a");
             if (!a) return;

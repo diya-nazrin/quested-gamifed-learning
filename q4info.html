@@ -43,7 +43,7 @@
                 </p>
             </section>
 
-            <!-- progress bar (full bar for info page) -->
+            <!-- progress bar  -->
             <div class="progress-container"
                 style="width: 100%; background: #3e2712; height: 10px; border-radius: 5px; margin: 20px 0;">
                 <div id="progressBar" style="background: #f1c40f; height: 100%; width: 100%; border-radius: 5px;">
@@ -63,30 +63,17 @@
     </div>
 
     <script>
-        // optional: restart only quest4 progress (if you add progress later)
         function resetQuest4() {
             localStorage.removeItem("q4Complete");
             alert("Quest 4 progress cleared ✅");
             location.href = "q4info.html";
         }
-    </script>
-    <!-- Loading overlay -->
-    <div id="loadingOverlay">
-        <div class="loader-scroll">
-            ✨ Loading Next Area...
-            <div class="loader-bar">
-                <div class="loader-fill"></div>
-            </div>
-        </div>
-    </div>
-    <script>
-        // Fade-in on load
+
         document.addEventListener("DOMContentLoaded", () => {
             document.body.classList.add("page-fade");
             requestAnimationFrame(() => document.body.classList.add("show"));
         });
 
-        // Navigate with animation
         function go(url) {
             const overlay = document.getElementById("loadingOverlay");
             overlay && overlay.classList.add("show");
@@ -97,7 +84,6 @@
             }, 350);
         }
 
-        // Intercept normal link clicks
         document.addEventListener("click", (e) => {
             const a = e.target.closest("a");
             if (!a) return;

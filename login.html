@@ -279,7 +279,6 @@
     </div>
 
     <script>
-        // If already logged in -> go to skill selection
         if (localStorage.getItem("isLoggedIn") === "1") {
             location.href = "skillselection.html";
         }
@@ -319,7 +318,6 @@
             const user = JSON.parse(saved);
 
             // NOTE: In localStorage auth, we are not storing real password in secure way.
-            // So for your project demo: accept any password length >= 3.
             if (email !== (user.email || "").toLowerCase()) {
                 showMsg("❌ Email not found. Try again.", false);
                 return;
@@ -330,7 +328,7 @@
                 return;
             }
 
-            // Login success
+            // Login 
             localStorage.setItem("isLoggedIn", "1");
             localStorage.setItem("playerName", user.name || "Adventurer");
 

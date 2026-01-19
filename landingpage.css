@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Jersey+10&family=Macondo&family=UnifrakturCook:wght@700&display=swap');
 
-/* 1. Global Reset & Body Layout */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -13,7 +12,6 @@ body {
     background-position: center;
     background-attachment: fixed;
     background-color: #1a1a2e;
-    /* Deep blue fallback */
     background-blend-mode: lighten;
 
     display: flex;
@@ -25,12 +23,10 @@ body {
     overflow-x: hidden;
 }
 
-/* 2. The Hero Container (The Glass Card) */
 .container {
     text-align: center;
     padding: 3.5rem 2rem;
     background: rgba(0, 0, 0, 0.45);
-    /* Darker tint for better contrast */
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -40,7 +36,6 @@ body {
     margin: 20px;
 }
 
-/* 3. The "Golden" Title with Shimmer Animation */
 @keyframes shimmer {
     0% {
         background-position: -200% center;
@@ -58,10 +53,9 @@ h1 {
 
 
     font-size: clamp(4rem, 12vw, 8rem);
-    /* Scalable for mobile */
+
     margin-bottom: 0.5rem;
 
-    /* Gold Metallic Gradient */
     background: linear-gradient(90deg,
             #BF953F 0%,
             #FCF6BA 25%,
@@ -73,11 +67,9 @@ h1 {
     -webkit-text-fill-color: transparent;
     animation: shimmer 3s linear infinite;
 
-    /* Sharpness and depth */
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.5));
 }
 
-/* 4. Sub-headings & Explanation */
 h2 {
     font-family: "Macondo", cursive;
     font-size: 1.8rem;
@@ -99,13 +91,11 @@ h2 {
     margin-right: auto;
 }
 
-/* 5. Buttons Hierarchy */
 .button-group {
     display: flex;
     gap: 20px;
     justify-content: center;
     flex-wrap: wrap;
-    /* Wraps on small screens */
 }
 
 button {
@@ -120,7 +110,6 @@ button {
     margin-bottom: 20px;
 }
 
-/* Primary CTA: "The Hero Action" */
 #login-btn {
     background: linear-gradient(135deg, #e74c3c, #c0392b);
     color: white;
@@ -134,7 +123,6 @@ button {
     filter: brightness(1.1);
 }
 
-/* Secondary CTA: "The Ghost Button" */
 #signup-btn {
     background: transparent;
     color: white;
@@ -151,7 +139,6 @@ button:active {
     transform: translateY(0);
 }
 
-/* 6. Responsive Fix for Tiny Screens */
 @media (max-width: 480px) {
     .container {
         padding: 2rem 1rem;

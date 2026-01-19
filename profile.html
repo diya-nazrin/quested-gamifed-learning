@@ -27,9 +27,7 @@
             z-index: 5;
         }
 
-        /* =========================
-           FLOATING DECORATIONS
-           ========================= */
+
         .float-layer {
             position: fixed;
             inset: 0;
@@ -133,9 +131,6 @@
             }
         }
 
-        /* =========================
-           HEADER + AVATAR
-           ========================= */
         .profile-title-row {
             display: flex;
             gap: 14px;
@@ -177,7 +172,6 @@
             gap: 6px;
         }
 
-        /* shimmer ONLY on h1 */
         .profile-title h1 {
             margin: 0;
             font-size: 64px;
@@ -202,9 +196,6 @@
             color: #3e2712;
         }
 
-        /* =========================
-           GRID + CARDS
-           ========================= */
         .grid {
             display: grid;
             grid-template-columns: 1.2fr 0.8fr;
@@ -445,7 +436,6 @@
 </head>
 
 <body>
-    <!-- Floating layer -->
     <div class="float-layer">
         <div class="float cloud c1"></div>
         <div class="float cloud c2"></div>
@@ -530,7 +520,6 @@
     </div>
 
     <script>
-        // ===== completion checks =====
         const qTask = localStorage.getItem("qTask") ? parseInt(localStorage.getItem("qTask")) : 0;
         const q1Done = qTask >= 10;
 
@@ -670,7 +659,6 @@
             location.reload();
         }
 
-        // ===== Name Save/Load =====
         const savedName = localStorage.getItem("playerName");
         if (savedName) document.getElementById("playerName").innerText = savedName;
 
@@ -682,7 +670,6 @@
             document.getElementById("nameInput").value = "";
         }
 
-        // Avatar fallback
         document.getElementById("avatarImg").onerror = function () {
             this.src = "https://i.imgur.com/7k12EPD.png";
         };

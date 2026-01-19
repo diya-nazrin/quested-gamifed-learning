@@ -66,24 +66,12 @@
             alert("Quest 5 progress cleared ✅");
             location.href = "q5info.html";
         }
-    </script>
-    <!-- Loading overlay -->
-    <div id="loadingOverlay">
-        <div class="loader-scroll">
-            ✨ Loading Next Area...
-            <div class="loader-bar">
-                <div class="loader-fill"></div>
-            </div>
-        </div>
-    </div>
-    <script>
-        // Fade-in on load
+
         document.addEventListener("DOMContentLoaded", () => {
             document.body.classList.add("page-fade");
             requestAnimationFrame(() => document.body.classList.add("show"));
         });
 
-        // Navigate with animation
         function go(url) {
             const overlay = document.getElementById("loadingOverlay");
             overlay && overlay.classList.add("show");
@@ -94,7 +82,6 @@
             }, 350);
         }
 
-        // Intercept normal link clicks
         document.addEventListener("click", (e) => {
             const a = e.target.closest("a");
             if (!a) return;

@@ -14,7 +14,6 @@ html {
     font-family: 'Macondo', cursive;
 }
 
-/* shimmer (optional) */
 @keyframes shimmer {
     0% {
         background-position: -200% center;
@@ -25,7 +24,6 @@ html {
     }
 }
 
-/* ===== parchment header ===== */
 .parchment-container {
     position: absolute;
     top: 30px;
@@ -58,7 +56,6 @@ h1 {
     text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.2);
 }
 
-/* map background */
 .full-screen-map {
     position: relative;
     width: 100vw;
@@ -68,7 +65,6 @@ h1 {
     background-position: center;
 }
 
-/* ===== Waypoints ===== */
 .waypoint {
     position: absolute;
     transform: translate(-50%, -100%);
@@ -81,7 +77,6 @@ h1 {
     width: 50px;
     height: 50px;
     background-color: #2ecc71;
-    /* default green */
     border: 3px solid #fff;
     border-radius: 50% 50% 50% 0;
     transform: rotate(-45deg);
@@ -92,7 +87,6 @@ h1 {
     will-change: transform;
 }
 
-/* Locked pins */
 .waypoint.locked .pin {
     background-color: #95a5a6;
     border-color: #7f8c8d;
@@ -110,7 +104,6 @@ h1 {
     white-space: nowrap;
 }
 
-/* ===== Navigation HUD ===== */
 .game-nav {
     position: fixed;
     bottom: 30px;
@@ -139,7 +132,6 @@ h1 {
     font-weight: bold;
 }
 
-/* ===== Completed waypoint styling ===== */
 .waypoint.completed .pin {
     background: #22c55e !important;
     box-shadow: 0 0 20px rgba(34, 197, 94, 0.9) !important;
@@ -154,13 +146,11 @@ h1 {
     border-radius: 999px;
 }
 
-/* lock style cursor */
 .waypoint.locked {
     opacity: 0.6;
     cursor: not-allowed;
 }
 
-/* 🏆 banner */
 .all-complete {
     margin-top: 12px;
     width: fit-content;
@@ -172,11 +162,6 @@ h1 {
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18);
 }
 
-/* =================================================================== */
-/* ✅ ANIMATIONS (GLITCH-FREE) */
-/* =================================================================== */
-
-/* pin bounce - keep rotate inside! */
 @keyframes bouncePin {
 
     0%,
@@ -189,7 +174,6 @@ h1 {
     }
 }
 
-/* hover float - keep rotate inside! */
 @keyframes hoverPin {
 
     0%,
@@ -202,7 +186,6 @@ h1 {
     }
 }
 
-/* pulse glow for completed pins */
 @keyframes glowPulse {
 
     0%,
@@ -215,7 +198,6 @@ h1 {
     }
 }
 
-/* unlock pop on pin */
 @keyframes unlockPopPin {
     0% {
         transform: rotate(-45deg) scale(0.7);
@@ -234,27 +216,22 @@ h1 {
     }
 }
 
-/* Current waypoint bounce */
 .waypoint.current .pin {
     animation: bouncePin 1.4s ease-in-out infinite;
 }
 
-/* Completed pin glow pulse */
 .waypoint.completed .pin {
     animation: glowPulse 1.2s ease-in-out infinite;
 }
 
-/* Hover float only on PIN */
 .waypoint:not(.locked):hover .pin {
     animation: hoverPin 0.9s ease-in-out infinite;
 }
 
-/* Unlocking animation (applied by JS) */
 .waypoint.unlocking .pin {
     animation: unlockPopPin 0.55s ease;
 }
 
-/* Sparkle effect on completed pins */
 .waypoint.completed .pin::after {
     content: "✨";
     position: absolute;
@@ -263,9 +240,6 @@ h1 {
     animation: bouncePin 1.3s ease-in-out infinite;
 }
 
-/* ===================== */
-/* QUEST PATH GLOW LINES */
-/* ===================== */
 
 .quest-path {
     position: absolute;
@@ -274,7 +248,6 @@ h1 {
     pointer-events: none;
 }
 
-/* ===== SVG PATH ROUTES ===== */
 .path-svg {
     position: absolute;
     inset: 0;
@@ -291,7 +264,6 @@ h1 {
     opacity: 0.9;
 }
 
-/* glowing active route */
 .quest-path.on {
     stroke: rgba(233, 67, 67, 0.95);
     filter: drop-shadow(0 0 10px rgba(34, 197, 94, 0.85));
@@ -309,10 +281,6 @@ h1 {
     }
 }
 
-
-/* ===================== */
-/* CLICK SPARKLE BURST   */
-/* ===================== */
 
 .spark {
     position: absolute;

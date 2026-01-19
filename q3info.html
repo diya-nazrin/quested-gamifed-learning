@@ -54,7 +54,6 @@
                 </div>
             </div>
 
-            <!-- ✅ IMPORTANT: Correct game file name -->
             <button class="play-btn" onclick="location.href='quest3-game.html'">Enter the Alchemy Factory</button>
 
             <div style="margin-top:14px;">
@@ -63,23 +62,13 @@
             </div>
         </div>
     </div>
-    <!-- Loading overlay -->
-    <div id="loadingOverlay">
-        <div class="loader-scroll">
-            ✨ Loading Next Area...
-            <div class="loader-bar">
-                <div class="loader-fill"></div>
-            </div>
-        </div>
-    </div>
+
     <script>
-        // Fade-in on load
         document.addEventListener("DOMContentLoaded", () => {
             document.body.classList.add("page-fade");
             requestAnimationFrame(() => document.body.classList.add("show"));
         });
 
-        // Navigate with animation
         function go(url) {
             const overlay = document.getElementById("loadingOverlay");
             overlay && overlay.classList.add("show");
@@ -90,7 +79,6 @@
             }, 350);
         }
 
-        // Intercept normal link clicks
         document.addEventListener("click", (e) => {
             const a = e.target.closest("a");
             if (!a) return;

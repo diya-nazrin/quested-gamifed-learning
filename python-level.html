@@ -25,31 +25,31 @@
             </div>
         </div>
 
-        <!-- ✅ LEVEL 1 -->
+        <!-- lvl1 -->
         <div class="waypoint current" id="lvl1" data-href="q1info.html" style="top: 80%; left: 12%;">
             <div class="pin"></div>
             <span class="label">Level 1</span>
         </div>
 
-        <!-- ✅ LEVEL 2 -->
+        <!--lvl2-->
         <div class="waypoint locked" id="lvl2" data-href="q2info.html" style="top: 78%; left: 35%;">
             <div class="pin"></div>
             <span class="label">Level 2</span>
         </div>
 
-        <!-- ✅ LEVEL 3 -->
+        <!-- lvl3 -->
         <div class="waypoint locked" id="lvl3" data-href="q3info.html" style="top: 54%; left: 50%;">
             <div class="pin"></div>
             <span class="label">Level 3</span>
         </div>
 
-        <!-- ✅ LEVEL 4 -->
+        <!-- lvl4 -->
         <div class="waypoint locked" id="lvl4" data-href="q4info.html" style="top: 48%; left: 75%;">
             <div class="pin"></div>
             <span class="label">Level 4</span>
         </div>
 
-        <!-- ✅ LEVEL 5 -->
+        <!-- lvl5 -->
         <div class="waypoint locked" id="lvl5" data-href="q5info.html" style="top: 25%; left: 90%;">
             <div class="pin"></div>
             <span class="label">Level 5</span>
@@ -59,25 +59,15 @@
 
 
     <script>
-        /* ============================
-           ✅ Completion Flags
-           ============================ */
 
-        // Quest 1 completion:
-        // ✅ Recommended: Set this in quest1-game.html when finished:
-        // localStorage.setItem("q1Complete","1");
 
         const q1Done = localStorage.getItem("q1Complete") === "1";
 
-        // Other quests already use complete flags
         const q2Done = localStorage.getItem("q2Complete") === "1";
         const q3Done = localStorage.getItem("q3Complete") === "1";
         const q4Done = localStorage.getItem("q4Complete") === "1";
         const q5Done = localStorage.getItem("q5Complete") === "1";
 
-        /* ============================
-           ✅ Helpers
-           ============================ */
         function makeClickable(el) {
             el.classList.remove("locked");
             el.onclick = () => {
@@ -110,9 +100,6 @@
             el.classList.remove("locked");
         }
 
-        /* ============================
-           ✅ Map Setup
-           ============================ */
         const lvl1 = document.getElementById("lvl1");
         const lvl2 = document.getElementById("lvl2");
         const lvl3 = document.getElementById("lvl3");
@@ -122,14 +109,14 @@
         // Level 1 always clickable
         makeClickable(lvl1);
 
-        // ✅ Completed styling
+        // Completed styling
         if (q1Done) markCompleted(lvl1);
         if (q2Done) markCompleted(lvl2);
         if (q3Done) markCompleted(lvl3);
         if (q4Done) markCompleted(lvl4);
         if (q5Done) markCompleted(lvl5);
 
-        // ✅ Unlock order:
+        //  Unlock order:
         // lvl2 unlock if q1Done
         // lvl3 unlock if q2Done
         // lvl4 unlock if q3Done
@@ -140,7 +127,7 @@
         if (q3Done) unlockWithAnim(lvl4); else lock(lvl4);
         if (q4Done) unlockWithAnim(lvl5); else lock(lvl5);
 
-        // ✅ Set CURRENT level as first incomplete
+        // Set CURRENT level as first incomplete
         // If level1 not done -> current on lvl1 (already)
         // else current becomes first locked/uncompleted unlocked one
         function setCurrentLevel() {

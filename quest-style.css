@@ -59,17 +59,11 @@ body {
     transform: scale(1.05);
 }
 
-/* ==========================
-   QUEST UI ANIMATION PACK
-   paste at bottom of quest-style.css
-   ========================== */
 
-/* Smooth transitions everywhere */
 * {
     transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease, opacity 0.25s ease;
 }
 
-/* ---------- Parchment float + hover ---------- */
 .parchment {
     animation: parchmentFloat 3.8s ease-in-out infinite;
     transform-origin: center;
@@ -87,14 +81,12 @@ body {
     }
 }
 
-/* Hover effect (feels like real scroll lifting) */
 .parchment:hover {
     transform: translateY(-12px) scale(1.01);
     box-shadow: 0 20px 55px rgba(0, 0, 0, 0.35);
     filter: contrast(1.03) saturate(1.05);
 }
 
-/* ---------- Soft entrance animation ---------- */
 .parchment h1,
 .parchment h2,
 .parchment h3 {
@@ -131,7 +123,6 @@ body {
     }
 }
 
-/* ---------- Code block shimmer ---------- */
 code,
 .code-block,
 .code-display {
@@ -164,7 +155,6 @@ code::after,
     }
 }
 
-/* ---------- Buttons: hover pulse ---------- */
 .play-btn {
     position: relative;
 }
@@ -179,7 +169,6 @@ code::after,
 }
 
 
-/* ---------- Info box hover ---------- */
 .lesson-content p[style*="border-left"] {
     border-radius: 10px;
 }
@@ -189,7 +178,6 @@ code::after,
     box-shadow: 0 12px 25px rgba(0, 0, 0, 0.18);
 }
 
-/* ---------- Scroll-container soft vignette ---------- */
 .scroll-container::before {
     content: "";
     position: fixed;
@@ -201,7 +189,6 @@ code::after,
     opacity: 0.35;
 }
 
-/* ---------- Small "magic dust" particles (lightweight) ---------- */
 .scroll-container::after {
     content: "";
     position: fixed;
@@ -226,9 +213,6 @@ code::after,
     }
 }
 
-/* =========================
-   PAGE LOADING TRANSITION
-   ========================= */
 
 .page-fade {
     opacity: 0;
@@ -246,7 +230,6 @@ code::after,
     transform: translateY(-8px) !important;
 }
 
-/* optional overlay */
 #loadingOverlay {
     position: fixed;
     inset: 0;

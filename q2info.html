@@ -157,7 +157,7 @@
     </div>
 
     <script>
-        // ✅ Level 2 Lessons (matches your datatype game)
+        //  Level 2 Lessons 
         const content = [
             {
                 t: "Integers (int)",
@@ -240,7 +240,7 @@
             document.getElementById('lesson').innerHTML = content[task].d;
             document.getElementById('exampleText').innerHTML = content[task].ex;
 
-            // ✅ Better progress calculation
+            // progress calculation
             const percent = Math.round(((task + 1) / content.length) * 100);
             document.getElementById('progressBar').style.width = percent + "%";
             document.getElementById('progressText').innerText = `Progress: ${percent}%`;
@@ -260,26 +260,13 @@
             updateUI();
         }
 
-        // Run on page load
         updateUI();
-    </script>
-    <!-- Loading overlay -->
-    <div id="loadingOverlay">
-        <div class="loader-scroll">
-            ✨ Loading Next Area...
-            <div class="loader-bar">
-                <div class="loader-fill"></div>
-            </div>
-        </div>
-    </div>
-    <script>
-        // Fade-in on load
+
         document.addEventListener("DOMContentLoaded", () => {
             document.body.classList.add("page-fade");
             requestAnimationFrame(() => document.body.classList.add("show"));
         });
 
-        // Navigate with animation
         function go(url) {
             const overlay = document.getElementById("loadingOverlay");
             overlay && overlay.classList.add("show");
@@ -290,7 +277,6 @@
             }, 350);
         }
 
-        // Intercept normal link clicks
         document.addEventListener("click", (e) => {
             const a = e.target.closest("a");
             if (!a) return;

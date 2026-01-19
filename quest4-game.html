@@ -73,7 +73,6 @@
             transform: scale(1.05);
         }
 
-        /* HUD progress */
         .hud {
             margin-top: 10px;
             width: min(560px, 92vw);
@@ -206,12 +205,7 @@
     </div>
 
     <script>
-        /**
-         * ✅ 3 Exercises, each is a DIFFERENT function type:
-         * 1) Return value function
-         * 2) Print function (no return)
-         * 3) Default argument function
-         */
+
 
         const ROUNDS = [
             {
@@ -223,7 +217,6 @@ def add(a, b):
     result = ${makeInput()}
     return result
         `.trim(),
-                // Accept multiple correct versions (spaces removed later)
                 accepted: ["a+b", "b+a", "(a+b)", "(b+a)"],
                 tests: [
                     { args: [2, 3], out: "5" },
@@ -240,7 +233,6 @@ def add(a, b):
 def greet(name):
     ${makeInput(true)}
         `.trim(),
-                // normalize removes spaces; accept a few reasonable greetings
                 accepted: [
                     'print("Hello",name)',
                     "print('Hello',name)",
@@ -267,15 +259,15 @@ def power(base, exp=2):
         `.trim(),
                 accepted: ["base**exp", "(base**exp)"],
                 tests: [
-                    { args: [5], out: "25" },      // uses exp=2
-                    { args: [2, 3], out: "8" },    // exp given
-                    { args: [10], out: "100" }     // uses exp=2
+                    { args: [5], out: "25" },
+                    { args: [2, 3], out: "8" },
+                    { args: [10], out: "100" }
                 ],
                 hint: `Hint: Power uses <code>**</code>. Example: <code>base ** exp</code>.`
             }
         ];
 
-        // ===== DOM =====
+        //  DOM 
         const codeBlock = document.getElementById("codeBlock");
         const logicInputId = "logicInput";
         const feedback = document.getElementById("feedback");
@@ -292,7 +284,6 @@ def power(base, exp=2):
         let round = 0;
 
         function makeInput(fullLine = false) {
-            // fullLine true for print-only exercise
             if (fullLine) {
                 return `<input type="text" class="logic-input" id="${logicInputId}" placeholder='print("Hello", name)'>`;
             }
@@ -347,9 +338,7 @@ def power(base, exp=2):
         }
 
         function runSimulatedTest(r, userFormula, test) {
-            // We don't actually execute Python.
-            // We simulate outputs based on correct logic.
-            // If accepted formula is correct, we show expected result.
+
 
             if (r.goal.includes("print(")) {
                 // print greeting
@@ -377,7 +366,6 @@ def power(base, exp=2):
             const input = getInputEl();
             const formula = clean(input ? input.value : "");
 
-            // for print exercise, we allow both single/double quotes etc.
             const isCorrect = r.accepted.includes(formula);
 
             if (isCorrect) {
@@ -386,7 +374,6 @@ def power(base, exp=2):
 
                 setCrystalsDefault();
 
-                // show test outputs
                 r.tests.forEach((t, i) => {
                     setTimeout(() => {
                         const out = runSimulatedTest(r, formula, t);
@@ -402,7 +389,6 @@ def power(base, exp=2):
 
             } else {
                 feedback.style.color = "red";
-                // more helpful feedback
                 if (round === 1) {
                     feedback.innerText = '❌ Try: print("Hello", name)';
                 } else if (round === 2) {
@@ -435,24 +421,12 @@ def power(base, exp=2):
         }
 
         updateUI();
-    </script>
-    <!-- Loading overlay -->
-    <div id="loadingOverlay">
-        <div class="loader-scroll">
-            ✨ Loading Next Area...
-            <div class="loader-bar">
-                <div class="loader-fill"></div>
-            </div>
-        </div>
-    </div>
-    <script>
-        // Fade-in on load
+
         document.addEventListener("DOMContentLoaded", () => {
             document.body.classList.add("page-fade");
             requestAnimationFrame(() => document.body.classList.add("show"));
         });
 
-        // Navigate with animation
         function go(url) {
             const overlay = document.getElementById("loadingOverlay");
             overlay && overlay.classList.add("show");
@@ -463,7 +437,6 @@ def power(base, exp=2):
             }, 350);
         }
 
-        // Intercept normal link clicks
         document.addEventListener("click", (e) => {
             const a = e.target.closest("a");
             if (!a) return;

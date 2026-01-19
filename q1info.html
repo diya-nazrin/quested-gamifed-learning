@@ -21,7 +21,7 @@
     </div>
 
     <script>
-        // Lesson content for Quest 1 (10 tasks)
+        // Lesson content 
         const content = [
             { t: "The Ink", d: 'Python uses <code>print()</code> to show text. Text needs quotes.' },
             { t: "Numbers", d: 'Numbers don\'t need quotes! Try <code>print(2026)</code>.' },
@@ -35,7 +35,7 @@
             { t: "Final", d: "Master the basics to unlock the next village area." }
         ];
 
-        // Progress: qTask (0-9)
+        // Progress
         let task = localStorage.getItem('qTask') ? parseInt(localStorage.getItem('qTask')) : 0;
 
         // If quest is completed, go straight to map
@@ -59,24 +59,12 @@
 
         document.getElementById('lesson').innerHTML =
             content[task].d;
-    </script>
-    <!-- Loading overlay -->
-    <div id="loadingOverlay">
-        <div class="loader-scroll">
-            ✨ Loading Next Area...
-            <div class="loader-bar">
-                <div class="loader-fill"></div>
-            </div>
-        </div>
-    </div>
-    <script>
-        // Fade-in on load
+
         document.addEventListener("DOMContentLoaded", () => {
             document.body.classList.add("page-fade");
             requestAnimationFrame(() => document.body.classList.add("show"));
         });
 
-        // Navigate with animation
         function go(url) {
             const overlay = document.getElementById("loadingOverlay");
             overlay && overlay.classList.add("show");
@@ -87,7 +75,6 @@
             }, 350);
         }
 
-        // Intercept normal link clicks
         document.addEventListener("click", (e) => {
             const a = e.target.closest("a");
             if (!a) return;
