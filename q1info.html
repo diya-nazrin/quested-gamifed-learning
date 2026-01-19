@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Quest 1: The Python Prophecy</title>
+    <link rel="stylesheet" href="quest-style.css">
+</head>
+
+<body>
+    <div class="scroll-container">
+        <div class="parchment">
+            <p id="prog" style="font-weight:800; opacity:0.8;"></p>
+
+            <h1 id="title">Quest 1: The First Spell</h1>
+            <p id="lesson">Loading lesson...</p>
+
+            <button onclick="location.href='quest1-game.html'">Let's Play!</button>
+
+        </div>
+    </div>
+
+    <script>
+        // Lesson content 
+        const content = [
+            { t: "The Ink", d: 'Python uses <code>print()</code> to show text. Text needs quotes.' },
+            { t: "Numbers", d: 'Numbers don\'t need quotes! Try <code>print(2026)</code>.' },
+            { t: "Math", d: 'You can add numbers: <code>print(5 + 5)</code>.' },
+            { t: "Multiply", d: 'Use the asterisk <code>*</code> to multiply.' },
+            { t: "Comments", d: 'Use <code>#</code> to write notes the computer ignores.' },
+            { t: "Joiner", d: 'Use <code>+</code> to join two pieces of text.' },
+            { t: "Double Ink", d: 'You can print multiple things using a comma.' },
+            { t: "Quotes", d: 'You can use \'single\' or "double" quotes.' },
+            { t: "Errors", d: '<code>Print()</code> with a capital P is a mistake!' },
+            { t: "Final", d: "Master the basics to unlock the next village area." }
+        ];
+
+        // Progress
+        let task = localStorage.getItem('qTask') ? parseInt(localStorage.getItem('qTask')) : 0;
+
+        // If quest is completed, go straight to map
+        if (task >= content.length) {
+            location.href = "python-level.html";
+        }
+        task = task ? parseInt(task) : 0;
+
+        // If invalid -> reset
+        if (isNaN(task) || task < 0 || task >= content.length) {
+            task = 0;
+            localStorage.setItem('qTask', task);
+        }
+
+
+        // Update UI
+        document.getElementById('title').innerText =
+            "Task " + (task + 1) + ": " + content[task].t;
+
+        document.getElementById("prog").innerText = `Progress: ${task}/10 completed`;
+
+        document.getElementById('lesson').innerHTML =
+            content[task].d;
+
+        document.addEventListener("DOMContentLoaded", () => {
+            document.body.classList.add("page-fade");
+            requestAnimationFrame(() => document.body.classList.add("show"));
+        });
+
+        function go(url) {
+            const overlay = document.getElementById("loadingOverlay");
+            overlay && overlay.classList.add("show");
+
+            document.body.classList.add("page-exit");
+            setTimeout(() => {
+                location.href = url;
+            }, 350);
+        }
+
+        document.addEventListener("click", (e) => {
+            const a = e.target.closest("a");
+            if (!a) return;
+
+            const href = a.getAttribute("href");
+            if (!href || href.startsWith("#") || href.startsWith("javascript:")) return;
+
+            e.preventDefault();
+            go(href);
+        });
+    </script>
+
+</body>
+
+</html>
