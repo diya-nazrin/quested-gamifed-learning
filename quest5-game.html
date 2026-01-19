@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Level 5: The Grand Trial</title>
+    <link rel="stylesheet" href="quest-style.css">
+
+    <style>
+        .boss-area {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .arena {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .bars {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 10px 0 5px;
+        }
+
+        .bar-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            font-weight: 900;
+        }
+
+        .hp-bar {
+            width: 100%;
+            height: 16px;
+            background: rgba(0, 0, 0, 0.28);
+            border: 2px solid #3e2712;
+            border-radius: 999px;
+            overflow: hidden;
+        }
+
+        .hp-fill {
+            width: 100%;
+            height: 100%;
+            transition: width 0.35s;
+        }
+
+        #boss-fill {
+            background: #e74c3c;
+        }
+
+        #player-fill {
+            background: #22c55e;
+        }
+
+        .quiz-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option-btn {
+            background: #f4e4bc;
+            border: 2px solid #3e2712;
+            padding: 12px;
+            cursor: pointer;
+            font-size: 1.05rem;
+            border-radius: 10px;
+            transition: 0.15s;
+            font-weight: 900;
+            text-align: left;
+        }
+
+        .option-btn:hover {
+            background: #3e2712;
+            color: #f4e4bc;
+            transform: translateY(-1px);
+        }
+
+        .option-btn:active {
+            transform: scale(0.99);
+        }
+
+        .code-block {
+            background: #000;
+            color: #0f0;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: left;
+            font-family: ui-monospace, Menlo, Monaco, Consolas, "Courier New", monospace;
+            margin-bottom: 6px;
+            white-space: pre-wrap;
+            border: 1px solid rgba(34, 197, 94, 0.35);
+        }
+
+        .hud-top {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            font-weight: 900;
+            opacity: 0.9;
+            flex-wrap: wrap;
+            margin-top: 4px;
+        }
+
+        .progress-bar {
+            height: 10px;
+            width: 100%;
+            border-radius: 999px;
+            background: rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12);
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            transition: width 0.25s ease;
+            background: linear-gradient(90deg, #8e44ad, #f1c40f);
+        }
+
+        #feedback {
+            margin-top: 8px;
+            font-weight: 900;
+            text-align: center;
+        }
+
+        .smalltip {
+            opacity: 0.85;
+            font-weight: 800;
+            text-align: center;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="parchment arena">
+
+        <div class="boss-area">
+            <h2 style="margin-bottom:4px;">🐉 The Code Guardian</h2>
+            <p class="smalltip">Defeat the Guardian by answering questions correctly!</p>
+
+            <div class="bars">
+                <!-- Boss HP -->
+                <div class="bar-row">
+                    <span>Guardian HP</span>
+                    <span id="bossHpText">100 / 100</span>
+                </div>
+                <div class="hp-bar">
+                    <div id="boss-fill" class="hp-fill"></div>
+                </div>
+
+                <!-- Player HP -->
+                <div class="bar-row">
+                    <span>Your HP</span>
+                    <span id="playerHpText">100 / 100</span>
+                </div>
+                <div class="hp-bar">
+                    <div id="player-fill" class="hp-fill"></div>
+                </div>
+            </div>
+
+            <!-- Progress -->
+            <div class="hud-top">
+                <span id="qCount">Question 1 / 10</span>
+                <span>Rule: Wrong answer → Guardian attacks ⚔️</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progFill"></div>
+            </div>
+        </div>
+
+        <div id="quiz-ui">
+            <p id="question-text" style="font-weight:900;">Identify the result of this code:</p>
+            <div id="code-snippet" class="code-block"></div>
+            <div id="options" class="quiz-container"></div>
+        </div>
+
+        <p id="feedback"></p>
+    </div>
+
+    <script>
+        // ===== Question bank =====
+        const QUESTIONS = [
+            { code: 'print("Magic" + "Portal")', options: ["Magic Portal", "MagicPortal", "Magic+Portal", "Error"], answer: "MagicPortal" },
+            { code: 'gold = 100\ngold = 200\nprint(gold)', options: ["100", "200", "100 200", "Error"], answer: "200" },
+            { code: '# Which is invalid?\n1_mage = "Bob"\n_mage = "Bob"\nmage_1 = "Bob"', options: ["1_mage", "_mage", "mage_1", "None"], answer: "1_mage" },
+            { code: 'items = ["Herb", "Lead", "Gold"]\nprint(items[1])', options: ["Herb", "Lead", "Gold", "Error"], answer: "Lead" },
+            { code: '# What does this symbol do?\n# print("Hello")', options: ["Prints Hello", "Causes Error", "Nothing (Comment)", "Saves File"], answer: "Nothing (Comment)" },
+            { code: 'def add(a, b):\n  return a + b\nprint(add(3, 4))', options: ["34", "a+b", "7", "None"], answer: "7" },
+            { code: 'for x in [1, 2]:\n  print(x * 10)', options: ["10 20", "1 2", "30", "1020"], answer: "10 20" },
+            { code: 'hero = {"hp": 50}\nprint(hero["hp"])', options: ["hero[1]", "hp", "50", "Error"], answer: "50" },
+            { code: 'Print("Hello")', options: ["Prints Hello", "NameError", 'Prints "Hello"', "Nothing"], answer: "NameError" },
+            { code: 'def mystery():\n  pass\n# Which keyword starts a function?', options: ["func", "define", "def", "start"], answer: "def" }
+        ];
+
+        // ===== state =====
+        let qIndex = 0;
+        let bossHP = 100;
+        let playerHP = 100;
+
+        const bossFill = document.getElementById("boss-fill");
+        const playerFill = document.getElementById("player-fill");
+        const bossHpText = document.getElementById("bossHpText");
+        const playerHpText = document.getElementById("playerHpText");
+        const codeSnippet = document.getElementById("code-snippet");
+        const optionsDiv = document.getElementById("options");
+        const feedback = document.getElementById("feedback");
+        const qCount = document.getElementById("qCount");
+        const progFill = document.getElementById("progFill");
+
+        // ===== helpers =====
+        function shuffle(arr) {
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        // Create a shuffled copy of questions & options
+        const questions = shuffle(QUESTIONS.map(q => ({
+            code: q.code,
+            answer: q.answer,
+            options: shuffle([...q.options])
+        })));
+
+        function updateBars() {
+            bossFill.style.width = bossHP + "%";
+            playerFill.style.width = playerHP + "%";
+            bossHpText.innerText = `${bossHP} / 100`;
+            playerHpText.innerText = `${playerHP} / 100`;
+        }
+
+        function updateProgress() {
+            qCount.innerText = `Question ${Math.min(qIndex + 1, questions.length)} / ${questions.length}`;
+            progFill.style.width = Math.round((qIndex / questions.length) * 100) + "%";
+        }
+
+        function loadQuestion() {
+            if (qIndex >= questions.length) {
+                winGame();
+                return;
+            }
+            const q = questions[qIndex];
+            codeSnippet.innerText = q.code;
+            optionsDiv.innerHTML = "";
+            feedback.innerText = "";
+            updateProgress();
+
+            q.options.forEach(opt => {
+                const btn = document.createElement("button");
+                btn.className = "option-btn";
+                btn.innerText = opt;
+                btn.onclick = () => checkAnswer(opt);
+                optionsDiv.appendChild(btn);
+            });
+        }
+
+        function lockOptions(lock = true) {
+            const btns = document.querySelectorAll(".option-btn");
+            btns.forEach(b => b.disabled = lock);
+            btns.forEach(b => b.style.opacity = lock ? "0.75" : "1");
+        }
+
+        function checkAnswer(selected) {
+            const q = questions[qIndex];
+            lockOptions(true);
+
+            if (selected === q.answer) {
+                bossHP = Math.max(0, bossHP - 10);
+                feedback.style.color = "green";
+                feedback.innerText = "💥 Critical Hit! Guardian takes damage.";
+
+                updateBars();
+
+                qIndex++;
+                setTimeout(() => {
+                    lockOptions(false);
+                    loadQuestion();
+                }, 700);
+
+            } else {
+                // player takes damage
+                playerHP = Math.max(0, playerHP - 12);
+                feedback.style.color = "#e74c3c";
+                feedback.innerText = `🛡️ Blocked! Correct answer: ${q.answer}`;
+
+                updateBars();
+
+                if (playerHP <= 0) {
+                    loseGame();
+                    return;
+                }
+
+                // let them retry same question
+                setTimeout(() => {
+                    lockOptions(false);
+                    feedback.innerText = "Try again ⚔️";
+                }, 900);
+            }
+
+            // early win if guardian defeated
+            if (bossHP <= 0) {
+                winGame();
+            }
+        }
+
+        function winGame() {
+            progFill.style.width = "100%";
+            feedback.style.color = "green";
+            feedback.innerText = "🏆 You are a Python Master.";
+
+            localStorage.setItem("q5Complete", "1");
+
+            setTimeout(() => {
+                location.href = "python-level.html"; // or victory.html if you want
+            }, 1700);
+        }
+
+        function loseGame() {
+            feedback.style.color = "#e74c3c";
+            feedback.innerText = "💀 You were defeated! Return stronger and try again.";
+
+            setTimeout(() => {
+                location.href = "python-level.html";
+            }, 2000);
+        }
+
+        // init
+        updateBars();
+        loadQuestion();
+    </script>
+    <!-- Loading overlay -->
+    <div id="loadingOverlay">
+        <div class="loader-scroll">
+            ✨ Loading Next Area...
+            <div class="loader-bar">
+                <div class="loader-fill"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Fade-in on load
+        document.addEventListener("DOMContentLoaded", () => {
+            document.body.classList.add("page-fade");
+            requestAnimationFrame(() => document.body.classList.add("show"));
+        });
+
+        // Navigate with animation
+        function go(url) {
+            const overlay = document.getElementById("loadingOverlay");
+            overlay && overlay.classList.add("show");
+
+            document.body.classList.add("page-exit");
+            setTimeout(() => {
+                location.href = url;
+            }, 350);
+        }
+
+        // Intercept normal link clicks
+        document.addEventListener("click", (e) => {
+            const a = e.target.closest("a");
+            if (!a) return;
+
+            const href = a.getAttribute("href");
+            if (!href || href.startsWith("#") || href.startsWith("javascript:")) return;
+
+            e.preventDefault();
+            go(href);
+        });
+    </script>
+
+</body>
+
+</html>

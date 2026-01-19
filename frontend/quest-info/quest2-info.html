@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="quest-style.css">
+    <title>Python Quest: Level 2</title>
+
+    <style>
+        body {
+            background-image: url(bg3.jpg);
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .parchment {
+            background: #f4e4bc;
+            border: 12px solid #3e2712;
+            border-image: url('https://www.transparenttextures.com/patterns/paper.png');
+            padding: 40px;
+            width: 440px;
+            text-align: center;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            position: relative;
+        }
+
+        h1 {
+            color: #5d3a1a;
+            margin-top: 0;
+        }
+
+        p {
+            color: #333;
+            line-height: 1.6;
+            font-size: 1.05em;
+        }
+
+        code {
+            background: rgba(0, 0, 0, 0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-weight: 900;
+        }
+
+        .mini-box {
+            margin-top: 14px;
+            background: rgba(0, 0, 0, 0.08);
+            padding: 12px 14px;
+            border-radius: 10px;
+            text-align: left;
+            font-size: 0.95em;
+        }
+
+        .mini-box b {
+            color: #5d3a1a;
+        }
+
+        .progress-container {
+            width: 100%;
+            background: #3e2712;
+            height: 12px;
+            border-radius: 6px;
+            margin: 25px 0;
+            overflow: hidden;
+        }
+
+        #progressBar {
+            background: linear-gradient(90deg, #f1c40f, #f39c12);
+            height: 100%;
+            width: 0%;
+            transition: 0.5s ease;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .play-btn {
+            background: #8e44ad;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: 900;
+        }
+
+        .play-btn:hover {
+            background: #9b59b6;
+            transform: scale(1.05);
+        }
+
+        .play-green {
+            background: #27ae60;
+        }
+
+        .play-green:hover {
+            background: #2ecc71;
+        }
+
+        .reset-link {
+            display: block;
+            margin-top: 15px;
+            font-size: 0.85em;
+            color: #8e44ad;
+            text-decoration: none;
+            cursor: pointer;
+            font-weight: 800;
+        }
+
+        .progress-text {
+            font-weight: 900;
+            opacity: 0.85;
+            font-size: 0.95em;
+            margin-top: -10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="parchment">
+        <h1 id="title">Level 2: Data Types</h1>
+        <p id="lesson">Loading your quest...</p>
+
+        <div class="mini-box" id="exampleBox">
+            <b>Example:</b> <span id="exampleText">...</span>
+        </div>
+
+        <div class="progress-container">
+            <div id="progressBar"></div>
+        </div>
+
+        <div class="progress-text" id="progressText">Progress: 0%</div>
+
+        <div class="btn-group">
+            <button class="play-btn" onclick="nextTask()">Next Tip</button>
+            <button class="play-btn play-green" onclick="location.href='quest2-game.html'">Play Game</button>
+            <button class="play-btn" style="background:#3e2712" onclick="location.href='python-level.html'">Back to
+                Map</button>
+        </div>
+
+        <a class="reset-link" onclick="resetProgress()">Restart Level</a>
+    </div>
+
+    <script>
+        // ✅ Level 2 Lessons (matches your datatype game)
+        const content = [
+            {
+                t: "Integers (int)",
+                d: "Whole numbers without decimals are <b>int</b>.",
+                ex: '<code>5</code> is an int'
+            },
+            {
+                t: "Floats (float)",
+                d: "Numbers with decimals are <b>float</b>.",
+                ex: '<code>5.0</code> is a float'
+            },
+            {
+                t: "Complex Numbers",
+                d: "Python supports complex numbers too!",
+                ex: '<code>2+3j</code> is complex'
+            },
+            {
+                t: "Strings (str)",
+                d: "Text written inside quotes is a <b>string</b>.",
+                ex: '<code>"hello"</code> is a string'
+            },
+            {
+                t: "Booleans (bool)",
+                d: "Only 2 values: <b>True</b> or <b>False</b>.",
+                ex: '<code>True</code> is bool'
+            },
+            {
+                t: "List",
+                d: "A list stores multiple values in <b>[ ]</b>. It can change (mutable).",
+                ex: '<code>[1, 2, 3]</code> is list'
+            },
+            {
+                t: "Tuple",
+                d: "A tuple stores multiple values in <b>( )</b>. It cannot change (immutable).",
+                ex: '<code>(1, 2, 3)</code> is tuple'
+            },
+            {
+                t: "Range",
+                d: "<b>range(n)</b> creates a sequence from 0 to n-1.",
+                ex: '<code>range(5)</code> means 0..4'
+            },
+            {
+                t: "Set",
+                d: "A set stores <b>unique</b> values in <b>{ }</b>.",
+                ex: '<code>{1, 2, 3}</code> is set'
+            },
+            {
+                t: "None",
+                d: "<b>None</b> means “no value / empty value”.",
+                ex: '<code>None</code> is NoneType'
+            }
+        ];
+
+        // Initialize/get progress
+        let task = localStorage.getItem('q2Task') ? parseInt(localStorage.getItem('q2Task')) : 0;
+
+        // If invalid progress -> reset
+        if (isNaN(task) || task < 0) {
+            task = 0;
+            localStorage.setItem('q2Task', 0);
+        }
+
+        function updateUI() {
+            // completed
+            if (task >= content.length) {
+                document.getElementById('title').innerText = "Level 2 Complete! ✅";
+                document.getElementById('lesson').innerHTML =
+                    "You learned Python Data Types. Now play the matching game and return to the map!";
+                document.getElementById('exampleText').innerHTML =
+                    "Play the game → match values to types";
+
+                document.getElementById('progressBar').style.width = "100%";
+                document.getElementById('progressText').innerText = "Progress: 100%";
+                return;
+            }
+
+            document.getElementById('title').innerText =
+                `Tip ${task + 1}/${content.length}: ${content[task].t}`;
+
+            document.getElementById('lesson').innerHTML = content[task].d;
+            document.getElementById('exampleText').innerHTML = content[task].ex;
+
+            // ✅ Better progress calculation
+            const percent = Math.round(((task + 1) / content.length) * 100);
+            document.getElementById('progressBar').style.width = percent + "%";
+            document.getElementById('progressText').innerText = `Progress: ${percent}%`;
+        }
+
+        function nextTask() {
+            if (task < content.length) {
+                task++;
+                localStorage.setItem('q2Task', task);
+                updateUI();
+            }
+        }
+
+        function resetProgress() {
+            localStorage.setItem('q2Task', 0);
+            task = 0;
+            updateUI();
+        }
+
+        // Run on page load
+        updateUI();
+    </script>
+    <!-- Loading overlay -->
+    <div id="loadingOverlay">
+        <div class="loader-scroll">
+            ✨ Loading Next Area...
+            <div class="loader-bar">
+                <div class="loader-fill"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Fade-in on load
+        document.addEventListener("DOMContentLoaded", () => {
+            document.body.classList.add("page-fade");
+            requestAnimationFrame(() => document.body.classList.add("show"));
+        });
+
+        // Navigate with animation
+        function go(url) {
+            const overlay = document.getElementById("loadingOverlay");
+            overlay && overlay.classList.add("show");
+
+            document.body.classList.add("page-exit");
+            setTimeout(() => {
+                location.href = url;
+            }, 350);
+        }
+
+        // Intercept normal link clicks
+        document.addEventListener("click", (e) => {
+            const a = e.target.closest("a");
+            if (!a) return;
+
+            const href = a.getAttribute("href");
+            if (!href || href.startsWith("#") || href.startsWith("javascript:")) return;
+
+            e.preventDefault();
+            go(href);
+        });
+    </script>
+
+</body>
+
+</html>
